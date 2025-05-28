@@ -23,7 +23,7 @@ if config.config_file_name is not None:
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
 
-from src.adapters.driven.database import user_repository
+from src.adapters.driven.database.models import user_model
 
 target_metadata = Base.metadata
 

@@ -1,6 +1,6 @@
 from fastapi.security import OAuth2PasswordBearer
 from src.domain.interfaces.user_interface import UserInterface
-from src.adapters.driven.database.user_repository import User
+from src.adapters.driven.database.models.user_model import User
 from src.domain.schema.auth_schema import TokenData, AuthEntity
 from fastapi import Depends, HTTPException, status
 from datetime import datetime, timedelta

@@ -1,32 +1,32 @@
+from abc import ABC, abstractmethod
 from typing import List
-from src.adapters.driven.database.user_repository import User
 from src.domain.schema.user_schema import UserEntity
 
 
-class UserInterface:
-    @classmethod
-    def icreate(cls, user: UserEntity, db, JWTAuth) -> UserEntity:
-        user.password = JWTAuth.pwd_crypt.hash(user.password)
-        user_orm = User(**user.model_dump())
-        user_orm = User.create(user_orm, db)
-        return user_orm
+class UserInterface(ABC):
+    @abstractmethod
+    def create(self, user: UserEntity) -> UserEntity: ...
 
-    @classmethod
-    def ilist_all(self, db) -> List[UserEntity]:
-        return User.find_all(db)
+    @abstractmethod
+    def list_all(self) -> List[UserEntity]: ...
 
-    @classmethod
-    def iget(cls, user_id: int, db) -> UserEntity:
-        pass
+    @abstractmethod
+    def get(self, user_id: int) -> UserEntity: ...
+    
+    @abstractmethod
+    def exists_by_email(self, email: str) -> bool: ...
+    
+    @abstractmethod
+    def exists_by_document_number(self, document_number: str) -> bool: ...
+    
+    @abstractmethod
+    def exists_by_id(self, user_id: int) -> bool: ...
 
-    @classmethod
-    def iupdate(cls, user: UserEntity, db) -> UserEntity:
-        pass
+    @abstractmethod
+    def update(self, user: UserEntity) -> UserEntity: ...
 
-    @classmethod
-    def idelete(cls, user_id: int, db):
-        pass
+    @abstractmethod
+    def delete(self, user_id: int) -> bool: ...
 
-    @classmethod
-    def ifilter(cls, syntax, db) -> List[UserEntity]:
-        pass
+    @abstractmethod
+    def filter(self, syntax) -> List[UserEntity]: ...

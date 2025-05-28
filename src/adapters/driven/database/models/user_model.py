@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import List, Optional
 from sqlalchemy import String, Boolean, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from src.adapters.driven.database.generic_repository import GenericORM
+from src.adapters.driven.database.repository.generic_repository import GenericORM
 from src.adapters.driven.database.base import Base, generate_uuid
 
 
@@ -26,3 +26,14 @@ class User(Base, GenericORM):
 
     def __repr__(self) -> str:
         return f"User(id={self.id!r}, name={self.name!r}, email={self.email!r})"
+
+    @classmethod
+    def exists_by_email(cls, db, email: str) -> bool:
+        return db.query(cls).filter(cls.email == email).first() is not None
+
+    @classmethod
+    def exists_by_document_number(cls, db, document_number: str) -> bool:
+        return (
+            db.query(cls).filter(cls.document_number == document_number).first()
+            is not None
+        )

@@ -5,8 +5,8 @@ from src.adapters.driving.api.routes.base import router as router_base
 from src.core import settings
 
 app = FastAPI(
-    title="Tech Challenge",
-    description="API para o desafio Pos",
+    title="Hexagonal FastAPI",
+    description="Hexagonal Architecture with FastAPI",
     version="0.0.1",
     license_info={
         "name": "MIT",
