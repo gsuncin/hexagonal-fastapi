@@ -53,6 +53,10 @@ class UserUseCase:
         """
         Soft delete
         """
-        user = self.user_repo.get(user_id)
-        user.is_active = False
-        return self.update_user(user)
+        return self.user_repo.delete(user_id)
+
+    def filter_users(self, syntax: str) -> List[UserEntity]:
+        """
+        @syntax: {"is_active": True, "is_superuser": False}
+        """
+        return self.user_repo.filter(syntax)

@@ -24,6 +24,9 @@ class User(Base, GenericORM):
     is_superuser: Mapped[bool] = mapped_column(Boolean, default=False)
     is_verified: Mapped[bool] = mapped_column(Boolean, default=False)
 
+    class Config:
+        orm_mode = True
+
     def __repr__(self) -> str:
         return f"User(id={self.id!r}, name={self.name!r}, email={self.email!r})"
 

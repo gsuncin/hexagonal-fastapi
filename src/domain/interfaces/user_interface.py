@@ -30,3 +30,6 @@ class UserInterface(ABC):
 
     @abstractmethod
     def filter(self, syntax) -> List[UserEntity]: ...
+
+    @abstractmethod
+    def to_dict(self) -> dict: ...

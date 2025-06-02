@@ -29,9 +29,14 @@ class UserRepository:
 
     def update(self, user: UserEntity):
         user_orm = User(**user.model_dump())
-        user_orm = User.update(user_orm, self.db_conn)
+        user_orm = User.save(user_orm, self.db_conn)
         return user_orm
 
-    def delete(self, user_id: str): ...
+    def delete(self, user_id: str):
+        user_orm = User.find_by_id(self.db_conn, user_id)
+        if user_orm:
+            user_orm.is_active = False
+            return User.save(user_orm, self.db_conn)
 
-    def filter(self, syntax): ...
+    def filter(self, syntax):
+        return User.filter(self.db_conn, syntax)

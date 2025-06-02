@@ -17,8 +17,10 @@ class GenericORM:
     def save(cls, entity, db: Session):
         if entity.id:
             db.merge(entity)
-        else:
-            db.add(entity)
+            db.commit()
+            return entity
+
+        db.add(entity)
         db.commit()
         db.refresh(entity)
         return entity
